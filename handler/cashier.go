@@ -1,10 +1,12 @@
 package handler
 
 import (
+	"github.com/go-playground/validator/v10"
 	"net/http"
 	"strconv"
 	"vandyahmad/gotoko/auth"
 	"vandyahmad/gotoko/cashier"
+	"vandyahmad/gotoko/entity"
 	"vandyahmad/gotoko/helper"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +23,8 @@ func NewCashierHandler(authService auth.Service, cashierService cashier.Service)
 		authService:    authService,
 	}
 }
+
+var validate *validator.Validate
 
 func (h *cashierHandler) ListCashier(c *gin.Context) {
 
@@ -75,10 +79,21 @@ func (h *cashierHandler) CreateCashier(c *gin.Context) {
 	var input cashier.InputCashier
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		response := helper.FormatErrorValidation(err)
+		response := entity.Response{
+			Success: false,
+			Message: "invalid request body",
+		}
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
+
+	validate = validator.New()
+	if err := validate.Struct(input); err != nil {
+		response := helper.FormatErrorValidationCreate(err)
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
 	newCashier, err := h.cashierService.RegisterCashier(&input)
 	if err != nil {
 		response := helper.ApiResponse(false, err.Error(), nil)
@@ -95,7 +110,17 @@ func (h *cashierHandler) UpdateCashier(c *gin.Context) {
 	var input cashier.InputCashier
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
-		response := helper.FormatErrorValidation(err)
+		response := entity.Response{
+			Success: false,
+			Message: "invalid request body",
+		}
+		c.JSON(http.StatusBadRequest, response)
+		return
+	}
+
+	validate = validator.New()
+	if err := validate.Struct(input); err != nil {
+		response := helper.FormatErrorValidationUpdate(err)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
@@ -167,7 +192,7 @@ func (h *cashierHandler) LoginPasscode(c *gin.Context) {
 	var input cashier.InputPasscode
 	err = c.ShouldBindJSON(&input)
 	if err != nil {
-		response := helper.FormatErrorValidation(err)
+		response := helper.FormatErrorValidationCreate(err)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
@@ -207,7 +232,7 @@ func (h *cashierHandler) LogoutPasscode(c *gin.Context) {
 	var input cashier.InputPasscode
 	err = c.ShouldBindJSON(&input)
 	if err != nil {
-		response := helper.FormatErrorValidation(err)
+		response := helper.FormatErrorValidationCreate(err)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}

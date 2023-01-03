@@ -8,9 +8,9 @@ import (
 )
 
 type ErrorResponse struct {
-	Status  bool      `json:"status"`
-	Message string    `json:"message"`
-	Error   ErrorMeta `json:"error"`
+	Status  bool        `json:"status"`
+	Message string      `json:"message"`
+	Error   []ErrorMeta `json:"error"`
 }
 
 type ErrorMeta struct {
@@ -25,24 +25,26 @@ type ContextResponse struct {
 	Key   string `json:"key"`
 }
 
-func FormatErrorValidation(err error) ErrorResponse {
+func FormatErrorValidationCreate(err error) ErrorResponse {
 	var tempError string
 	var messageBody string
 	var path []string
 	var errorResponse ErrorResponse
+	var errMeta []ErrorMeta
+	var tempMessageBody []string
 	for _, v := range err.(validator.ValidationErrors) {
 		tag := Q(v.Field())
 		lower := ToSnakeCase(tag)
 		switch v.Tag() {
 		case "required":
 			tempError = lower + `is required`
-			messageBody = "body ValidationError: " + lower + ` is required`
+			messageBody = lower + ` is required`
 		case "min":
 			tempError = lower + `min ` + v.Param()
-			messageBody = "body ValidationError: " + lower + ` min ` + v.Param()
+			messageBody = lower + ` min ` + v.Param()
 		case "max":
 			tempError = lower + `max ` + v.Param()
-			messageBody = "body ValidationError: " + lower + ` max ` + v.Param()
+			messageBody = lower + ` max ` + v.Param()
 		default:
 			tempError = v.Error()
 		}
@@ -51,19 +53,24 @@ func FormatErrorValidation(err error) ErrorResponse {
 			Label: ToSnakeCase(v.Field()),
 			Key:   ToSnakeCase(v.Field()),
 		}
-		errorMeta := ErrorMeta{
+		tempErrorMeta := ErrorMeta{
 			Message: tempError,
 			Path:    path,
 			Type:    "any." + v.Tag(),
 			Context: context,
 		}
 
+		errMeta = append(errMeta, tempErrorMeta)
+		tempMessageBody = append(tempMessageBody, messageBody)
+
 		errorResponse.Status = false
-		errorResponse.Message = messageBody
-		errorResponse.Error = errorMeta
-		return errorResponse
 
 	}
+
+	justString := strings.Join(tempMessageBody, ". ")
+
+	errorResponse.Message = "body ValidationError: " + justString
+	errorResponse.Error = errMeta
 	return errorResponse
 }
 
