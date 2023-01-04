@@ -2,8 +2,8 @@ package config
 
 import (
 	"fmt"
-	"vandyahmad/gotoko/migration"
-	"vandyahmad/gotoko/seeder"
+	"vandyahmad/newgotoko/migration"
+	"vandyahmad/newgotoko/seeder"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

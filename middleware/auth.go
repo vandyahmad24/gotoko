@@ -3,9 +3,9 @@ package middleware
 import (
 	"net/http"
 	"strings"
-	"vandyahmad/gotoko/auth"
-	"vandyahmad/gotoko/cashier"
-	"vandyahmad/gotoko/helper"
+	"vandyahmad/newgotoko/auth"
+	"vandyahmad/newgotoko/cashier"
+	"vandyahmad/newgotoko/helper"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

@@ -2,7 +2,7 @@ package category
 
 import (
 	"time"
-	"vandyahmad/gotoko/helper"
+	"vandyahmad/newgotoko/helper"
 )
 
 type CategoryListResponse struct {

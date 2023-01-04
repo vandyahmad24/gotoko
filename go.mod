@@ -1,4 +1,4 @@
-module vandyahmad/gotoko
+module vandyahmad/newgotoko
 
 go 1.17
 

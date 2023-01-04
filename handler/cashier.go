@@ -4,10 +4,10 @@ import (
 	"github.com/go-playground/validator/v10"
 	"net/http"
 	"strconv"
-	"vandyahmad/gotoko/auth"
-	"vandyahmad/gotoko/cashier"
-	"vandyahmad/gotoko/entity"
-	"vandyahmad/gotoko/helper"
+	"vandyahmad/newgotoko/auth"
+	"vandyahmad/newgotoko/cashier"
+	"vandyahmad/newgotoko/entity"
+	"vandyahmad/newgotoko/helper"
 
 	"github.com/gin-gonic/gin"
 )

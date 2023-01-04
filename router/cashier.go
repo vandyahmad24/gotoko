@@ -1,10 +1,10 @@
 package router
 
 import (
-	"vandyahmad/gotoko/auth"
-	"vandyahmad/gotoko/cashier"
-	"vandyahmad/gotoko/config"
-	"vandyahmad/gotoko/handler"
+	"vandyahmad/newgotoko/auth"
+	"vandyahmad/newgotoko/cashier"
+	"vandyahmad/newgotoko/config"
+	"vandyahmad/newgotoko/handler"
 
 	"github.com/gin-gonic/gin"
 )

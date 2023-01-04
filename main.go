@@ -6,9 +6,9 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"vandyahmad/gotoko/config"
-	"vandyahmad/gotoko/helper"
-	rtr "vandyahmad/gotoko/router"
+	"vandyahmad/newgotoko/config"
+	"vandyahmad/newgotoko/helper"
+	rtr "vandyahmad/newgotoko/router"
 
 	"github.com/gin-gonic/gin"
 )

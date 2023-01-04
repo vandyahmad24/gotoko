@@ -3,7 +3,7 @@ package auth
 import (
 	"errors"
 
-	"vandyahmad/gotoko/config"
+	"vandyahmad/newgotoko/config"
 
 	"github.com/dgrijalva/jwt-go"
 )

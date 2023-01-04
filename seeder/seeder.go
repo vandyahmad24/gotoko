@@ -2,9 +2,9 @@ package seeder
 
 import (
 	"fmt"
-	cash "vandyahmad/gotoko/cashier"
-	category "vandyahmad/gotoko/category"
-	payment "vandyahmad/gotoko/payment"
+	cash "vandyahmad/newgotoko/cashier"
+	category "vandyahmad/newgotoko/category"
+	payment "vandyahmad/newgotoko/payment"
 
 	"gorm.io/gorm"
 )

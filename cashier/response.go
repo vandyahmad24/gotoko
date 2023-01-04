@@ -2,7 +2,7 @@ package cashier
 
 import (
 	"time"
-	"vandyahmad/gotoko/helper"
+	"vandyahmad/newgotoko/helper"
 )
 
 type CashierListResponse struct {
