@@ -23,6 +23,7 @@ func main() {
 		ctx.JSON(404, response)
 	})
 	rtr.CashierRoute(router)
+	rtr.CategoryRoute(router)
 	go func() {
 		router.Run(":3030")
 	}()
