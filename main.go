@@ -24,6 +24,7 @@ func main() {
 	})
 	rtr.CashierRoute(router)
 	rtr.CategoryRoute(router)
+	rtr.PaymentRoute(router)
 	go func() {
 		router.Run(":3030")
 	}()
