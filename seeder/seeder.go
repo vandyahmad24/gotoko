@@ -11,6 +11,8 @@ import (
 
 type Seeder interface {
 	CashierSeeder() error
+	CategorySeeder() error
+	PaymentSeeder() error
 }
 
 type seeder struct {
